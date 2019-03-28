@@ -13,4 +13,20 @@ node{
  stage('Checkout') {
         checkout scm
     }
+
+  stage('TestEnv'){
+    sh 'echo deploying test environment'
+  }
+
+  stage('Test'){
+    sh 'echo Testing application'
+  }
+
+  stage('Deploying to prod'){
+    sh 'echo Testing application'
+  }
+
+  stage('Running reports'){
+    sh 'echo Testing application'
+  }
 }
