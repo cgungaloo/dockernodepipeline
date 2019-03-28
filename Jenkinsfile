@@ -17,10 +17,7 @@ node{
   stage('TestEnv'){
     sh 'echo deploying test environment'
     steps{
-      try {
-        sh "docker image prune -f"
-        sh "docker stop $containerName"
-      } catch(error){}
+      sh 'echo deploying test environment'
     }
   }
 
