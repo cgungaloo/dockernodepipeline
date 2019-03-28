@@ -19,7 +19,7 @@ node{
     try{
     sh "docker image prune -f"
     sh "docker stop $containerName"
-    }
+    }catch(error){}
   }
 
   stage('Test'){
