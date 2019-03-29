@@ -19,11 +19,12 @@ node{
     try{
     sh "docker image prune -f"
     sh "docker stop $containerName"
+    sh "docker build -t nodebox -f Dockerfile.node . "
     }catch(error){}
   }
 
   stage('Test'){
-    sh 'echo Testing application'
+    sh 'docker run -p 1337:1337 --name=nodebox nodebox'
   }
 
   stage('Deploying to prod'){
