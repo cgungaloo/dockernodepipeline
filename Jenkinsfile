@@ -18,13 +18,13 @@ node{
     sh 'echo deploying test environment'
     try{
     sh "docker image prune -f"
-    sh "docker stop nodebox"
     sh "docker build -t nodebox -f Dockerfile.node . "
     }catch(error){}
   }
 
   stage('Test'){
     try{
+      sh "docker stop nodebox"
       sh 'docker rm nodebox'
       sh 'docker run -p 1337:1337 --name=nodebox nodebox'
 
