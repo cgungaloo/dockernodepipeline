@@ -28,7 +28,7 @@ node{
       sh 'docker rm nodebox'
       sh 'docker run -p 1337:1337 --name=nodebox nodebox'
 
-    }
+    }catch(error){}
   }
 
   stage('Deploying to prod'){
