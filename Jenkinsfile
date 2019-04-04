@@ -32,6 +32,7 @@ node{
       }
   stage('Test'){
     try{
+      sh 'docker stop nodebox || true && docker rm nodebox || true'
       sh 'docker run -d -p 1337:1337 --name=nodebox nodebox'
 
     }catch(error){}
