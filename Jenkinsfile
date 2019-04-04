@@ -1,12 +1,12 @@
 def CONTAINER_NAME="jenkins-pipeline"
 def CONTAINER_TAG="latest"
-def DOCKER_HUB_USER="vineet0164"
+def DOCKER_HUB_USER="chrisgungaloo"
 def HTTP_PORT="8090"
 
 node{
  stage('Initialize'){
-   def dockerHome = tool 'myDocker'
-   def nodeHome = tool 'mynodejs'
+   def dockerHome = tool 'mydocker'
+   def nodeHome = tool 'mynode'
   env.PATH = "${dockerHome}/bin:${nodeHome}/bin:${env.PATH}"
  }
 
@@ -22,10 +22,16 @@ node{
     }catch(error){}
   }
 
+  stage('Push to Docker Registry'){
+          withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          sh "docker login -u $dockerUser -p $dockerPassword"
+          sh "docker tag nodebox chrisgungaloo/nodebox"
+          sh "docker push chrisgungaloo/nodebox"
+          echo "Image push complete"
+          }
+      }
   stage('Test'){
     try{
-      sh "docker stop nodebox"
-      sh 'docker rm nodebox'
       sh 'docker run -p 1337:1337 --name=nodebox nodebox'
 
     }catch(error){}
