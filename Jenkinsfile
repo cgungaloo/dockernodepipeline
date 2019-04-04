@@ -32,7 +32,7 @@ node{
       }
   stage('Test'){
     try{
-      sh 'docker run -p 1337:1337 --name=nodebox nodebox'
+      sh 'docker run -d -p 1337:1337 --name=nodebox nodebox'
 
     }catch(error){}
   }
